@@ -21,12 +21,14 @@ start_week = 1634515200
 # start_time = 1633046400
 res = [list(map(int, item.split(' '))) for item in data]
 # test_range = [[2, 5], [5, 6], [1, 2], [3, 6]]
+# res = [[1634515199, 1635120001], [1634515198, 1635110000], [1634515210, 1635115000], [1634515100, 1634515150],
+#        [1635120010, 1635120050], [1635110000, 1635130000]]
 # merge_time(test_range)
 # print(test_range)
 time_process = [0] * week_time
 end_week = start_week + week_time
 ends = [0] * week_time
-
+error = False
 for pos, item in enumerate(res):
     try:
         print(pos)
@@ -54,6 +56,8 @@ for pos, item in enumerate(res):
         if b - a >= 0:
             if ends[a] == 1:
                 ends[a] = 0
+                if b == week_time:
+                    b -= 1
                 ends[b] = 1
                 a += 1
             elif ends[a] == 0:
@@ -63,6 +67,7 @@ for pos, item in enumerate(res):
             for i in range(a, b):
                 time_process[i] += 1
     except Exception as ex:
+        print(pos)
         print(ex)
         print(item)
         print(a, b)
